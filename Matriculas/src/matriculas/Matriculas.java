@@ -11,11 +11,12 @@ package matriculas;
  */
 public class Matriculas {
 
-    /**
-     * @param args the command line arguments
-     */
+
     public static void main(String[] args) {
-        // TODO code application logic here
+       
+        AppMatriculas appMa = new AppMatriculas();
+        appMa.setVisible(true);
+        
     }
     
 }
