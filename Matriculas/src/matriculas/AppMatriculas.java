@@ -3,9 +3,13 @@ package matriculas;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
+import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+
 
 
 /**
@@ -17,6 +21,11 @@ public class AppMatriculas extends javax.swing.JFrame {
     
     public AppMatriculas() {
         initComponents();
+        layerLogin.setVisible(false);
+        layerTomaNumero.setVisible(false);        
+        ButtonGroup grupo1 = new ButtonGroup();
+        grupo1.add(rb1);
+        grupo1.add(rb2);
     }
 
 
@@ -26,12 +35,22 @@ public class AppMatriculas extends javax.swing.JFrame {
 
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
-        jSeparator1 = new javax.swing.JSeparator();
-        jLabel2 = new javax.swing.JLabel();
-        cmbUsuario = new javax.swing.JComboBox<>();
+        layerLogin = new javax.swing.JLayeredPane();
         jLabel3 = new javax.swing.JLabel();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        txtPass = new javax.swing.JPasswordField();
+        jLabel2 = new javax.swing.JLabel();
+        cmbUsuarioLogin = new javax.swing.JComboBox<>();
         btnLogin = new javax.swing.JButton();
+        layerTomaNumero = new javax.swing.JLayeredPane();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        btnTomaNumero = new javax.swing.JButton();
+        txtRutTomaNumero = new javax.swing.JTextField();
+        cmbCursosTomaNumero = new javax.swing.JComboBox<>();
+        jLayeredPane1 = new javax.swing.JLayeredPane();
+        rb2 = new javax.swing.JRadioButton();
+        rb1 = new javax.swing.JRadioButton();
+        jLabel4 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         btnBuscarCarraraListado = new javax.swing.JButton();
@@ -45,46 +64,172 @@ public class AppMatriculas extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel2.setText("usuario");
-
-        cmbUsuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         jLabel3.setText("password");
 
+        jLabel2.setText("Usuario");
+
+        cmbUsuarioLogin.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONE..." }));
+
         btnLogin.setText("Ingresar");
+
+        layerLogin.setLayer(jLabel3, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        layerLogin.setLayer(txtPass, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        layerLogin.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        layerLogin.setLayer(cmbUsuarioLogin, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        layerLogin.setLayer(btnLogin, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        javax.swing.GroupLayout layerLoginLayout = new javax.swing.GroupLayout(layerLogin);
+        layerLogin.setLayout(layerLoginLayout);
+        layerLoginLayout.setHorizontalGroup(
+            layerLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layerLoginLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layerLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layerLoginLayout.createSequentialGroup()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cmbUsuarioLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(211, Short.MAX_VALUE))
+                    .addGroup(layerLoginLayout.createSequentialGroup()
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtPass, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))))
+        );
+        layerLoginLayout.setVerticalGroup(
+            layerLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layerLoginLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layerLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(cmbUsuarioLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(21, 21, 21)
+                .addGroup(layerLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(txtPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnLogin))
+                .addContainerGap())
+        );
+
+        jLabel5.setText("Carrera");
+
+        jLabel6.setText("RUT");
+
+        btnTomaNumero.setText("Tomar Numero");
+        btnTomaNumero.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTomaNumeroActionPerformed(evt);
+            }
+        });
+
+        cmbCursosTomaNumero.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONE..." }));
+
+        layerTomaNumero.setLayer(jLabel5, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        layerTomaNumero.setLayer(jLabel6, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        layerTomaNumero.setLayer(btnTomaNumero, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        layerTomaNumero.setLayer(txtRutTomaNumero, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        layerTomaNumero.setLayer(cmbCursosTomaNumero, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        javax.swing.GroupLayout layerTomaNumeroLayout = new javax.swing.GroupLayout(layerTomaNumero);
+        layerTomaNumero.setLayout(layerTomaNumeroLayout);
+        layerTomaNumeroLayout.setHorizontalGroup(
+            layerTomaNumeroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layerTomaNumeroLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layerTomaNumeroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layerTomaNumeroLayout.createSequentialGroup()
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtRutTomaNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layerTomaNumeroLayout.createSequentialGroup()
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cmbCursosTomaNumero, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
+                .addComponent(btnTomaNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        layerTomaNumeroLayout.setVerticalGroup(
+            layerTomaNumeroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layerTomaNumeroLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layerTomaNumeroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(txtRutTomaNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(21, 21, 21)
+                .addGroup(layerTomaNumeroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(btnTomaNumero)
+                    .addComponent(cmbCursosTomaNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+
+        rb2.setText("Ejecutivo");
+        rb2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rb2ActionPerformed(evt);
+            }
+        });
+
+        rb1.setText("Alumno");
+        rb1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rb1ActionPerformed(evt);
+            }
+        });
+
+        jLayeredPane1.setLayer(rb2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(rb1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
+        jLayeredPane1.setLayout(jLayeredPane1Layout);
+        jLayeredPane1Layout.setHorizontalGroup(
+            jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(rb1)
+                .addGap(18, 18, 18)
+                .addComponent(rb2)
+                .addContainerGap(14, Short.MAX_VALUE))
+        );
+        jLayeredPane1Layout.setVerticalGroup(
+            jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rb1)
+                    .addComponent(rb2))
+                .addContainerGap())
+        );
+
+        jLabel4.setText("SELECCIONE SU FUNCION");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(22, 22, 22)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 668, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(cmbUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(57, 57, 57)
-                        .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 289, Short.MAX_VALUE))
+                    .addComponent(jLabel4)
+                    .addComponent(layerLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(layerTomaNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 460, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(cmbUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3)
-                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLogin))
-                .addGap(20, 20, 20)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(453, Short.MAX_VALUE))
+                .addGap(15, 15, 15)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(layerLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(layerTomaNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(249, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("INGRESO", jPanel1);
@@ -155,7 +300,7 @@ public class AppMatriculas extends javax.swing.JFrame {
             .addGap(0, 517, Short.MAX_VALUE)
         );
 
-        jTabbedPane1.addTab("ALUMNOS CARRERA", jPanel3);
+        jTabbedPane1.addTab("MATRICULA", jPanel3);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -207,7 +352,7 @@ public class AppMatriculas extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
         pack();
@@ -217,41 +362,64 @@ public class AppMatriculas extends javax.swing.JFrame {
         LLenaTablaCarreras();
     }//GEN-LAST:event_btnBuscarCarraraListadoActionPerformed
 
+    private void rb2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rb2ActionPerformed
+        if (rb2.isSelected()== true) 
+        {
+         layerLogin.setVisible(true);
+         layerTomaNumero.setVisible(false);
+        }
+    }//GEN-LAST:event_rb2ActionPerformed
+
+    private void rb1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rb1ActionPerformed
+        if (rb1.isSelected()== true) 
+        {
+         layerTomaNumero.setVisible(true);
+         layerLogin.setVisible(false);  
+         llenaComboCarreraTomaNUmero();
+        }
+    }//GEN-LAST:event_rb1ActionPerformed
+
+    private void btnTomaNumeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTomaNumeroActionPerformed
+       
+        if (validarRut(txtRutTomaNumero.getText()))
+        {
+            JOptionPane.showMessageDialog(null, "RUT VALIDO");  
+        }else
+        {
+            JOptionPane.showMessageDialog(null, "RUT INCORRECTO");
+            limpiar("TomaNumero");
+        }
+    }//GEN-LAST:event_btnTomaNumeroActionPerformed
+
     
     
     
-    public void llenaComboUsuario()
+   public void llenaComboCarreraTomaNUmero()
     {
-     File archivo;
+      File archivo ;
       FileReader fr;
       BufferedReader br;
-      String[] datos = null;
-     
+      String[] datos;
+   
       try 
       {
-         archivo = new File (pathL +"\\src\\USUARIOS.txt");
+         archivo = new File (pathL +"\\src\\CARRERAS.txt");
          fr = new FileReader (archivo);
          br = new BufferedReader(fr);
-     
          String linea;
-         while((linea=br.readLine())!=null)     
-         {      
-         datos =linea.split(",");
+         
+         while((linea=br.readLine())!=null) 
+         {
+          datos =linea.split(",");
+          cmbCursosTomaNumero.addItem(datos[1]);    
          }
-         
-         
-         
-
-                   
        }
       catch(IOException e){
-        JOptionPane.showMessageDialog(null, "Error al cargar usaurios");   
-      } 
-
-    }
-    
-    public void LLenaTablaCarreras()
-{
+        JOptionPane.showMessageDialog(null, "Error al cargar docentes");   
+      }   
+   }
+   public void LLenaTablaCarreras()
+    {
     
   try {
         File archivo = new File ( pathL +"\\src\\CARRERAS.txt");
@@ -293,11 +461,45 @@ public class AppMatriculas extends javax.swing.JFrame {
          }
 
 }
+
+  public boolean llenaListaEsperaArchivo()
+{
+    try 
+        {             
+            String ruta = pathL +"\\src\\LISTADEESPERA.txt";
+                      
+            StringBuffer s = new StringBuffer();
+	    s.append(txtRutTomaNumero.getText()); 
+            s.append(",");
+            s.append(cmbCursosTomaNumero.getSelectedItem());
+            s.append(",");
+             // falta validar contar  y llenar  prioridad 
+            //s.append(cuentalistaEspera());
+                 // falta comprobar carga de trabajo de ejecutivos y asignar uno a la atencion
+              
+            
+            FileWriter fw = new FileWriter(ruta,true);
+            PrintWriter pw = new PrintWriter(fw);
+            pw.println(s.toString());           
+            pw.close();
+            fw.close();
+            limpiar("TomaNumero");            
+            return true; 
+        }
+          catch (IOException e)
+        {
+            limpiar("TomaNumero"); 
+           return false;
+        }
+}
+
+
+
+    
+
+  
     
     
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -337,21 +539,112 @@ public class AppMatriculas extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscarCarraraListado;
     private javax.swing.JButton btnLogin;
-    private javax.swing.JComboBox<String> cmbUsuario;
+    private javax.swing.JButton btnTomaNumero;
+    private javax.swing.JComboBox<String> cmbCursosTomaNumero;
+    private javax.swing.JComboBox<String> cmbUsuarioLogin;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
-    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JLayeredPane layerLogin;
+    private javax.swing.JLayeredPane layerTomaNumero;
     private javax.swing.JTable listadoCarreras;
+    private javax.swing.JRadioButton rb1;
+    private javax.swing.JRadioButton rb2;
     private javax.swing.JTextField txtNombreCarreraListado;
+    private javax.swing.JPasswordField txtPass;
+    private javax.swing.JTextField txtRutTomaNumero;
     // End of variables declaration//GEN-END:variables
+
+
+public int cuentalistaEspera()
+{
+      int cont = 1;
+      File archivo;
+      FileReader fr;
+      BufferedReader br;
+      String[] datos = null;
+      
+      try 
+      {
+         archivo = new File (pathL +"\\src\\LISTADEESPERA.txt");
+         fr = new FileReader (archivo);
+         br = new BufferedReader(fr);
+     
+         String linea;
+         while((linea=br.readLine())!=null)
+         {           
+         datos =linea.split(",");
+         cont += cont;
+         }
+       }
+      catch(IOException e)
+      {
+         cont = 0;
+        JOptionPane.showMessageDialog(null, "Error al leer lista de espera");   
+      } 
+  
+ return cont;
+}
+    
+public static boolean validarRut(String rut) 
+ {
+ 
+boolean validacion = false;
+try
+{
+
+    rut =  rut.toUpperCase();
+    rut = rut.replace(".", "");
+    rut = rut.replace("-", "");
+    int rutAux = Integer.parseInt(rut.substring(0, rut.length() - 1)); 
+    char dv = rut.charAt(rut.length() - 1);
+    int m = 0, s = 1;
+    
+    for (; rutAux != 0; rutAux /= 10) 
+        {
+            s = (s + rutAux % 10 * (9 - m++ % 6)) % 11;
+        }
+    if (dv == (char) (s != 0 ? s + 47 : 75))
+        {
+        validacion = true;
+        }
+}
+catch (java.lang.NumberFormatException e)
+{
+}
+catch (Exception e) 
+{
+}
+return validacion;
+}
+    
+public void limpiar(String formulario)
+{
+     switch (formulario) 
+     {
+
+            case "TomaNumero":
+                txtRutTomaNumero.setText("");
+                cmbCursosTomaNumero.setSelectedIndex(0);
+                break;
+
+            case "Login":
+                txtPass.setText("");
+                cmbUsuarioLogin.setSelectedIndex(0);
+                break;
+    }
+    
+} 
 }
