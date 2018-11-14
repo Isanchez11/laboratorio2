@@ -1,14 +1,18 @@
 package matriculas;
 
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.PriorityQueue;
+import java.util.Queue;
 import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+
 
 
 
@@ -16,8 +20,11 @@ import javax.swing.table.DefaultTableModel;
  * @author isaias sanchez
  */
 public class AppMatriculas extends javax.swing.JFrame {
-
+    
     String pathL = System.getProperty("user.dir");
+    Queue<String> cola = new PriorityQueue<String>();
+    //File fichero = new File(pathL);
+    
     
     public AppMatriculas() {
         initComponents();
@@ -26,6 +33,7 @@ public class AppMatriculas extends javax.swing.JFrame {
         ButtonGroup grupo1 = new ButtonGroup();
         grupo1.add(rb1);
         grupo1.add(rb2);
+        llenarCola();
     }
 
 
@@ -61,6 +69,11 @@ public class AppMatriculas extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
+        BORRAR = new javax.swing.JButton();
+        LLENAR = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        pizarra = new javax.swing.JTextArea();
+        LISTAR = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -328,15 +341,56 @@ public class AppMatriculas extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("tab5", jPanel5);
 
+        BORRAR.setText("BORRAR");
+        BORRAR.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BORRARActionPerformed(evt);
+            }
+        });
+
+        LLENAR.setText("LLENAR");
+        LLENAR.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LLENARActionPerformed(evt);
+            }
+        });
+
+        pizarra.setColumns(20);
+        pizarra.setRows(5);
+        jScrollPane2.setViewportView(pizarra);
+
+        LISTAR.setText("LISTAR");
+        LISTAR.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LISTARActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 957, Short.MAX_VALUE)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(100, 100, 100)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 638, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(LISTAR)
+                    .addComponent(LLENAR)
+                    .addComponent(BORRAR))
+                .addContainerGap(219, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 517, Short.MAX_VALUE)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(61, 61, 61)
+                .addComponent(BORRAR)
+                .addGap(18, 18, 18)
+                .addComponent(LLENAR)
+                .addGap(32, 32, 32)
+                .addComponent(LISTAR)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(79, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("tab6", jPanel6);
@@ -383,13 +437,29 @@ public class AppMatriculas extends javax.swing.JFrame {
        
         if (validarRut(txtRutTomaNumero.getText()))
         {
-            JOptionPane.showMessageDialog(null, "RUT VALIDO");  
+            JOptionPane.showMessageDialog(null, "RUT VALIDO"); 
+            llenaListaEsperaArchivo();
         }else
         {
             JOptionPane.showMessageDialog(null, "RUT INCORRECTO");
             limpiar("TomaNumero");
         }
     }//GEN-LAST:event_btnTomaNumeroActionPerformed
+
+    private void LISTARActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LISTARActionPerformed
+         pizarra.setText(cola.element());
+         System.out.println(cola.size());
+    }//GEN-LAST:event_LISTARActionPerformed
+
+    private void LLENARActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LLENARActionPerformed
+        llenarCola();
+    }//GEN-LAST:event_LLENARActionPerformed
+
+    private void BORRARActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BORRARActionPerformed
+        
+        cola.remove();
+        System.out.println(cola.element());
+    }//GEN-LAST:event_BORRARActionPerformed
 
     
     
@@ -462,8 +532,8 @@ public class AppMatriculas extends javax.swing.JFrame {
 
 }
 
-  public boolean llenaListaEsperaArchivo()
-{
+   public boolean llenaListaEsperaArchivo()
+    {
     try 
         {             
             String ruta = pathL +"\\src\\LISTADEESPERA.txt";
@@ -473,9 +543,12 @@ public class AppMatriculas extends javax.swing.JFrame {
             s.append(",");
             s.append(cmbCursosTomaNumero.getSelectedItem());
             s.append(",");
-             // falta validar contar  y llenar  prioridad 
-            //s.append(cuentalistaEspera());
-                 // falta comprobar carga de trabajo de ejecutivos y asignar uno a la atencion
+            //falta validar contar  y llenar  prioridad 
+            s.append(devuelveNroAtencion());
+            s.append(",");
+            s.append(retornaEjecutivo());
+            
+
               
             
             FileWriter fw = new FileWriter(ruta,true);
@@ -537,6 +610,9 @@ public class AppMatriculas extends javax.swing.JFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BORRAR;
+    private javax.swing.JButton LISTAR;
+    private javax.swing.JButton LLENAR;
     private javax.swing.JButton btnBuscarCarraraListado;
     private javax.swing.JButton btnLogin;
     private javax.swing.JButton btnTomaNumero;
@@ -556,10 +632,12 @@ public class AppMatriculas extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLayeredPane layerLogin;
     private javax.swing.JLayeredPane layerTomaNumero;
     private javax.swing.JTable listadoCarreras;
+    private javax.swing.JTextArea pizarra;
     private javax.swing.JRadioButton rb1;
     private javax.swing.JRadioButton rb2;
     private javax.swing.JTextField txtNombreCarreraListado;
@@ -568,13 +646,125 @@ public class AppMatriculas extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
 
-public int cuentalistaEspera()
+public void llenarCola()
 {
-      int cont = 1;
+    File archivo;
+    FileReader fr;
+    BufferedReader br;
+    String datos[]= null;  
+      
+      try 
+      {
+         archivo = new File (pathL +"\\src\\LISTADEESPERA.txt");
+         fr = new FileReader (archivo);
+         br = new BufferedReader(fr);
+     
+         String linea;
+         while((linea=br.readLine())!=null)
+         {  
+             datos = linea.split(",");
+             cola.add(datos[0]+","+datos[1]+","+datos[2]+","+datos[3]+"\n");
+          
+            
+           System.out.println(cola);
+   
+         }
+       }
+      catch(IOException e)
+      {
+         
+        JOptionPane.showMessageDialog(null, "Error al leer lista de espera contador");   
+      } 
+  }    
+    
+public void borrarCola()
+{
+  
+}
+public String retornaEjecutivo()
+{
+  String asignado=null;
+  int cant1=0;
+  int cant2=0;
+  int cant3=0;
+  int nroAtencion=devuelveNroAtencion();
+
+  
+    if (nroAtencion == 0)
+    {        
+      asignado="ADMINISTRATIVO1";
+    }
+    else
+    {
+      
       File archivo;
       FileReader fr;
       BufferedReader br;
-      String[] datos = null;
+      String[] datos;
+      String eje= null;
+      try 
+      {
+         archivo = new File (pathL +"\\src\\LISTADEESPERA.txt");
+         fr = new FileReader (archivo);
+         br = new BufferedReader(fr);
+     
+         String linea;
+         while((linea=br.readLine())!=null)
+         {           
+         datos =linea.split(",");
+         
+         if("ADMINISTRATIVO1".equals(datos[3]))
+            {
+               cant1= cant1+1;
+              
+            }
+          if("ADMINISTRATIVO2".equals(datos[3]))
+            {
+              cant2= cant2+1;
+            }      
+            if("ADMINISTRATIVO3".equals(datos[3]))
+            {
+              cant3= cant3+1;
+            }
+                
+         }
+          
+           System.out.println("C1------- " + cant1 + " C2------ "+cant2 + "C3----- "+cant3);
+
+           if(cant1 <= cant2 && cant1 < cant3)
+          {
+             asignado = "ADMINISTRATIVO1" ;  
+          }
+          else
+          {
+            if(cant2 < cant1 && cant2 <= cant3)
+            {
+              asignado = "ADMINISTRATIVO2" ;  
+            }
+             else
+            {               
+               asignado = "ADMINISTRATIVO3" ;
+            }
+          }
+          
+      }
+      catch(IOException e)
+      { 
+        JOptionPane.showMessageDialog(null, "Error al leer lista de espera contador");   
+      } 
+    }
+  
+  JOptionPane.showMessageDialog(null, "agregado correctamente a la lista de espera, su ejecutivo es: "+ asignado); 
+  return asignado;
+}
+
+public int devuelveNroAtencion()
+{
+      int cont = 0;
+      File archivo;
+      FileReader fr;
+      BufferedReader br;
+      String[] datos;
       
       try 
       {
@@ -586,13 +776,14 @@ public int cuentalistaEspera()
          while((linea=br.readLine())!=null)
          {           
          datos =linea.split(",");
-         cont += cont;
+         cont = cont+1;
+        // JOptionPane.showMessageDialog(null,"contador: "+ cont);   
          }
        }
       catch(IOException e)
       {
          cont = 0;
-        JOptionPane.showMessageDialog(null, "Error al leer lista de espera");   
+        JOptionPane.showMessageDialog(null, "Error al leer lista de espera contador");   
       } 
   
  return cont;
@@ -646,5 +837,24 @@ public void limpiar(String formulario)
                 break;
     }
     
-} 
 }
+
+
+public static void eliminarFichero(File fichero)
+{
+    if (!fichero.exists()) 
+    {
+        System.out.println("El archivo: " + fichero.getName() + " no existe");
+    } 
+    else 
+    {
+        fichero.delete();
+        System.out.println("El archivo: " + fichero.getName() + " fue eliminado");
+    }
+}
+
+
+}
+
+
+
