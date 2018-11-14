@@ -22,7 +22,9 @@ import javax.swing.table.DefaultTableModel;
 public class AppMatriculas extends javax.swing.JFrame {
     
     String pathL = System.getProperty("user.dir");
-    Queue<String> cola = new PriorityQueue<String>();
+    Queue<String> ej1 = new PriorityQueue<>();
+    Queue<String> ej2 = new PriorityQueue<>();
+    Queue<String> ej3 = new PriorityQueue<>();
     //File fichero = new File(pathL);
     
     
@@ -33,7 +35,7 @@ public class AppMatriculas extends javax.swing.JFrame {
         ButtonGroup grupo1 = new ButtonGroup();
         grupo1.add(rb1);
         grupo1.add(rb2);
-        llenarCola();
+        llenarColas();
     }
 
 
@@ -229,7 +231,7 @@ public class AppMatriculas extends javax.swing.JFrame {
                     .addComponent(layerLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(layerTomaNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 460, Short.MAX_VALUE))
+                .addGap(0, 342, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -242,7 +244,7 @@ public class AppMatriculas extends javax.swing.JFrame {
                 .addComponent(layerLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(layerTomaNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(249, Short.MAX_VALUE))
+                .addContainerGap(181, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("INGRESO", jPanel1);
@@ -283,7 +285,7 @@ public class AppMatriculas extends javax.swing.JFrame {
                         .addComponent(jLabel1)
                         .addGap(31, 31, 31)
                         .addComponent(txtNombreCarreraListado, javax.swing.GroupLayout.PREFERRED_SIZE, 507, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 124, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnBuscarCarraraListado, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(53, 53, 53))))
         );
@@ -296,7 +298,7 @@ public class AppMatriculas extends javax.swing.JFrame {
                     .addComponent(txtNombreCarreraListado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuscarCarraraListado))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 462, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 394, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -306,11 +308,11 @@ public class AppMatriculas extends javax.swing.JFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 957, Short.MAX_VALUE)
+            .addGap(0, 839, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 517, Short.MAX_VALUE)
+            .addGap(0, 449, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("MATRICULA", jPanel3);
@@ -319,11 +321,11 @@ public class AppMatriculas extends javax.swing.JFrame {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 957, Short.MAX_VALUE)
+            .addGap(0, 839, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 517, Short.MAX_VALUE)
+            .addGap(0, 449, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("tab4", jPanel4);
@@ -332,11 +334,11 @@ public class AppMatriculas extends javax.swing.JFrame {
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 957, Short.MAX_VALUE)
+            .addGap(0, 839, Short.MAX_VALUE)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 517, Short.MAX_VALUE)
+            .addGap(0, 449, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("tab5", jPanel5);
@@ -377,7 +379,7 @@ public class AppMatriculas extends javax.swing.JFrame {
                     .addComponent(LISTAR)
                     .addComponent(LLENAR)
                     .addComponent(BORRAR))
-                .addContainerGap(219, Short.MAX_VALUE))
+                .addContainerGap(101, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -390,7 +392,7 @@ public class AppMatriculas extends javax.swing.JFrame {
                 .addComponent(LISTAR)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(79, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("tab6", jPanel6);
@@ -401,12 +403,11 @@ public class AppMatriculas extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1)
-                .addContainerGap())
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 844, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 477, Short.MAX_VALUE)
         );
 
         pack();
@@ -447,18 +448,18 @@ public class AppMatriculas extends javax.swing.JFrame {
     }//GEN-LAST:event_btnTomaNumeroActionPerformed
 
     private void LISTARActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LISTARActionPerformed
-         pizarra.setText(cola.element());
-         System.out.println(cola.size());
+         pizarra.setText(ej1.element());
+         System.out.println(ej1.size());
     }//GEN-LAST:event_LISTARActionPerformed
 
     private void LLENARActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LLENARActionPerformed
-        llenarCola();
+        llenarColas();
     }//GEN-LAST:event_LLENARActionPerformed
 
     private void BORRARActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BORRARActionPerformed
         
-        cola.remove();
-        System.out.println(cola.element());
+        ej1.remove();
+        System.out.println(ej1.element());
     }//GEN-LAST:event_BORRARActionPerformed
 
     
@@ -646,8 +647,9 @@ public class AppMatriculas extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
 
-public void llenarCola()
+public void llenarColas()
 {
+    
     File archivo;
     FileReader fr;
     BufferedReader br;
@@ -663,23 +665,53 @@ public void llenarCola()
          while((linea=br.readLine())!=null)
          {  
              datos = linea.split(",");
-             cola.add(datos[0]+","+datos[1]+","+datos[2]+","+datos[3]+"\n");
+             
+             System.out.println(datos[3]);
+             if ("ADMINISTRATIVO1".equals(datos[3])) 
+             {
+                 ej1.add(datos[0]+","+datos[1]+","+datos[2]+","+datos[3]+"\n");
+             }
+             if ("ADMINISTRATIVO2".equals(datos[3])) 
+             {
+                 ej2.add(datos[0]+","+datos[1]+","+datos[2]+","+datos[3]+"\n");
+             }             
+             if ("ADMINISTRATIVO3".equals(datos[3])) 
+             {
+                 ej3.add(datos[0]+","+datos[1]+","+datos[2]+","+datos[3]+"\n");
+             }
           
-            
-           System.out.println(cola);
+         System.out.println("---------cola1-------------");
+         System.out.println(ej1);
+         System.out.println("---------fin 1-------------");
+         
+         
+         System.out.println("---------cola2-------------");
+         System.out.println(ej2);
+         System.out.println("---------fin 2-------------");
+         
+         
+         System.out.println("---------cola3-------------");
+         System.out.println(ej3);
+         System.out.println("---------fin 3-------------");
+           
    
          }
-       }
+         
+
+         
+      
+      }
       catch(IOException e)
       {
          
-        JOptionPane.showMessageDialog(null, "Error al leer lista de espera contador");   
+        JOptionPane.showMessageDialog(null, "Error al llenar colas");   
       } 
   }    
     
 public void borrarCola()
 {
-  
+ ej1.clear();
+ 
 }
 public String retornaEjecutivo()
 {
