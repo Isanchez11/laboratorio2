@@ -25,7 +25,9 @@ public class AppMatriculas extends javax.swing.JFrame {
     Queue<String> ej1 = new PriorityQueue<>();
     Queue<String> ej2 = new PriorityQueue<>();
     Queue<String> ej3 = new PriorityQueue<>();
-    //File fichero = new File(pathL);
+    //true activa las alertas  y las impresiones de consola
+    boolean flg = false;
+    
     
     
     public AppMatriculas() {
@@ -35,6 +37,7 @@ public class AppMatriculas extends javax.swing.JFrame {
         ButtonGroup grupo1 = new ButtonGroup();
         grupo1.add(rb1);
         grupo1.add(rb2);
+        
         llenarColas();
     }
 
@@ -44,13 +47,13 @@ public class AppMatriculas extends javax.swing.JFrame {
     private void initComponents() {
 
         jTabbedPane1 = new javax.swing.JTabbedPane();
-        jPanel1 = new javax.swing.JPanel();
+        jp1 = new javax.swing.JPanel();
         layerLogin = new javax.swing.JLayeredPane();
         jLabel3 = new javax.swing.JLabel();
-        txtPass = new javax.swing.JPasswordField();
         jLabel2 = new javax.swing.JLabel();
         cmbUsuarioLogin = new javax.swing.JComboBox<>();
         btnLogin = new javax.swing.JButton();
+        txtps = new javax.swing.JTextField();
         layerTomaNumero = new javax.swing.JLayeredPane();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -61,15 +64,15 @@ public class AppMatriculas extends javax.swing.JFrame {
         rb2 = new javax.swing.JRadioButton();
         rb1 = new javax.swing.JRadioButton();
         jLabel4 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
+        jp2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         btnBuscarCarraraListado = new javax.swing.JButton();
         txtNombreCarreraListado = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         listadoCarreras = new javax.swing.JTable();
-        jPanel3 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
+        jp3 = new javax.swing.JPanel();
+        btnAtender = new javax.swing.JButton();
+        txtNroAtencion = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -90,6 +93,7 @@ public class AppMatriculas extends javax.swing.JFrame {
         jTextField5 = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         jTextField6 = new javax.swing.JTextField();
+        labelEje = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -100,12 +104,17 @@ public class AppMatriculas extends javax.swing.JFrame {
         cmbUsuarioLogin.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONE..." }));
 
         btnLogin.setText("Ingresar");
+        btnLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLoginActionPerformed(evt);
+            }
+        });
 
         layerLogin.setLayer(jLabel3, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        layerLogin.setLayer(txtPass, javax.swing.JLayeredPane.DEFAULT_LAYER);
         layerLogin.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
         layerLogin.setLayer(cmbUsuarioLogin, javax.swing.JLayeredPane.DEFAULT_LAYER);
         layerLogin.setLayer(btnLogin, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        layerLogin.setLayer(txtps, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout layerLoginLayout = new javax.swing.GroupLayout(layerLogin);
         layerLogin.setLayout(layerLoginLayout);
@@ -113,18 +122,17 @@ public class AppMatriculas extends javax.swing.JFrame {
             layerLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layerLoginLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layerLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layerLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layerLoginLayout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cmbUsuarioLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(211, Short.MAX_VALUE))
+                        .addComponent(cmbUsuarioLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layerLoginLayout.createSequentialGroup()
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtPass, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(txtps)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
+                .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layerLoginLayout.setVerticalGroup(
             layerLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -136,8 +144,8 @@ public class AppMatriculas extends javax.swing.JFrame {
                 .addGap(21, 21, 21)
                 .addGroup(layerLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(txtPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLogin))
+                    .addComponent(btnLogin)
+                    .addComponent(txtps, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -234,22 +242,22 @@ public class AppMatriculas extends javax.swing.JFrame {
 
         jLabel4.setText("SELECCIONE SU FUNCION");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout jp1Layout = new javax.swing.GroupLayout(jp1);
+        jp1.setLayout(jp1Layout);
+        jp1Layout.setHorizontalGroup(
+            jp1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jp1Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jp1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
                     .addComponent(layerLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(layerTomaNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 342, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        jp1Layout.setVerticalGroup(
+            jp1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jp1Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -261,7 +269,7 @@ public class AppMatriculas extends javax.swing.JFrame {
                 .addContainerGap(181, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("INGRESO", jPanel1);
+        jTabbedPane1.addTab("INGRESO", jp1);
 
         jLabel1.setText("NOMBRE CARRERA");
 
@@ -285,17 +293,17 @@ public class AppMatriculas extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(listadoCarreras);
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        javax.swing.GroupLayout jp2Layout = new javax.swing.GroupLayout(jp2);
+        jp2.setLayout(jp2Layout);
+        jp2Layout.setHorizontalGroup(
+            jp2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jp2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jp2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jp2Layout.createSequentialGroup()
                         .addComponent(jScrollPane1)
                         .addContainerGap())
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGroup(jp2Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(31, 31, 31)
                         .addComponent(txtNombreCarreraListado, javax.swing.GroupLayout.PREFERRED_SIZE, 507, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -303,11 +311,11 @@ public class AppMatriculas extends javax.swing.JFrame {
                         .addComponent(btnBuscarCarraraListado, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(53, 53, 53))))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        jp2Layout.setVerticalGroup(
+            jp2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jp2Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jp2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtNombreCarreraListado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuscarCarraraListado))
@@ -316,11 +324,11 @@ public class AppMatriculas extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("CARRERAS", jPanel2);
+        jTabbedPane1.addTab("CARRERAS", jp2);
 
-        jButton1.setText("Atender Alumno");
+        btnAtender.setText("Atender Alumno");
 
-        jTextField1.setEnabled(false);
+        txtNroAtencion.setEnabled(false);
 
         jLabel7.setText("Nro. Atención");
 
@@ -352,95 +360,102 @@ public class AppMatriculas extends javax.swing.JFrame {
 
         jLabel12.setText("Monto a Pagar");
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        labelEje.setEnabled(false);
+
+        javax.swing.GroupLayout jp3Layout = new javax.swing.GroupLayout(jp3);
+        jp3.setLayout(jp3Layout);
+        jp3Layout.setHorizontalGroup(
+            jp3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jp3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addGroup(jp3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jp3Layout.createSequentialGroup()
+                        .addGroup(jp3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
+                            .addComponent(btnAtender, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
                             .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButton3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jp3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jp3Layout.createSequentialGroup()
                                 .addGap(10, 10, 10)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
-                                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jTextField2))
-                                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGroup(jp3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(labelEje, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jp3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jp3Layout.createSequentialGroup()
+                                            .addComponent(txtNroAtencion, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(jTextField2))
+                                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(jp3Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
-                                        .addGap(40, 40, 40)
-                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE)
-                                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                                    .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                    .addComponent(jButton5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE))
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                    .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
-                                                    .addComponent(jTextField6)))))
-                                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addGap(145, 145, 145))
+                                .addGroup(jp3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jp3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jTextField5, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE))))))
+                    .addGroup(jp3Layout.createSequentialGroup()
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(67, 67, 67)
+                        .addGroup(jp3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jp3Layout.createSequentialGroup()
+                                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jp3Layout.createSequentialGroup()
+                                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(85, 85, 85))
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        jp3Layout.setVerticalGroup(
+            jp3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jp3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton1)
+                .addGroup(jp3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAtender)
+                    .addComponent(labelEje, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jp3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtNroAtencion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7)
                     .addComponent(jLabel8)
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jp3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9))
                 .addGap(18, 18, 18)
                 .addComponent(jButton2)
                 .addGap(10, 10, 10)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jp3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
                     .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel12)
                     .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jp3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
                     .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(13, 13, 13)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jp3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton3)
                     .addComponent(jButton4)
                     .addComponent(jButton5)
                     .addComponent(jButton6))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jp3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(13, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("MATRICULA", jPanel3);
+        jTabbedPane1.addTab("MATRICULA", jp3);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -448,7 +463,7 @@ public class AppMatriculas extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1))
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 844, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -467,6 +482,7 @@ public class AppMatriculas extends javax.swing.JFrame {
         {
          layerLogin.setVisible(true);
          layerTomaNumero.setVisible(false);
+         llenaComboUsuarios();
         }
     }//GEN-LAST:event_rb2ActionPerformed
 
@@ -483,18 +499,34 @@ public class AppMatriculas extends javax.swing.JFrame {
        
         if (validarRut(txtRutTomaNumero.getText()))
         {
+            if(flg==true){
             JOptionPane.showMessageDialog(null, "RUT VALIDO"); 
+            }
             llenaListaEsperaArchivo();
         }else
         {
+            if(flg==true){
             JOptionPane.showMessageDialog(null, "RUT INCORRECTO");
+            }
             limpiar("TomaNumero");
         }
     }//GEN-LAST:event_btnTomaNumeroActionPerformed
 
-    
-    
-    
+    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
+        if(validaPass()== true){
+            if(flg==true){
+                JOptionPane.showMessageDialog(null, "contraseña Correcta");
+            }
+            btnAtender.requestFocus();
+            limpiar("Login");           
+        }else
+        {
+         JOptionPane.showMessageDialog(null, "contraseña incorrecta");
+            limpiar("Login");
+        }
+        
+    }//GEN-LAST:event_btnLoginActionPerformed
+   
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -528,16 +560,14 @@ public class AppMatriculas extends javax.swing.JFrame {
     }
     
     
-    
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAtender;
     private javax.swing.JButton btnBuscarCarraraListado;
     private javax.swing.JButton btnLogin;
     private javax.swing.JButton btnTomaNumero;
     private javax.swing.JComboBox<String> cmbCursosTomaNumero;
     private javax.swing.JComboBox<String> cmbUsuarioLogin;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -556,34 +586,36 @@ public class AppMatriculas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLayeredPane jLayeredPane1;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextArea jTextArea2;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
+    private javax.swing.JPanel jp1;
+    private javax.swing.JPanel jp2;
+    private javax.swing.JPanel jp3;
+    private javax.swing.JTextField labelEje;
     private javax.swing.JLayeredPane layerLogin;
     private javax.swing.JLayeredPane layerTomaNumero;
     private javax.swing.JTable listadoCarreras;
     private javax.swing.JRadioButton rb1;
     private javax.swing.JRadioButton rb2;
     private javax.swing.JTextField txtNombreCarreraListado;
-    private javax.swing.JPasswordField txtPass;
+    private javax.swing.JTextField txtNroAtencion;
     private javax.swing.JTextField txtRutTomaNumero;
+    private javax.swing.JTextField txtps;
     // End of variables declaration//GEN-END:variables
 
     
-    public void llenaComboCarreraTomaNUmero()
-    {
+public void llenaComboCarreraTomaNUmero()
+{
+    cmbCursosTomaNumero.removeAllItems();
       File archivo ;
       FileReader fr;
       BufferedReader br;
@@ -603,11 +635,44 @@ public class AppMatriculas extends javax.swing.JFrame {
          }
        }
       catch(IOException e){
-        JOptionPane.showMessageDialog(null, "Error al cargar docentes");   
+       if(flg==true){
+          JOptionPane.showMessageDialog(null, "Error al cargar docentes" +e);   
+          }
       }   
    }
-   public void LLenaTablaCarreras()
-    {
+
+public void llenaComboUsuarios()
+{
+      cmbUsuarioLogin.removeAllItems();
+      File archivo ;
+      FileReader fr;
+      BufferedReader br;
+      String[] datos;
+   
+      try 
+      {
+         archivo = new File (pathL +"\\src\\USUARIOS.txt");
+         fr = new FileReader (archivo);
+         br = new BufferedReader(fr);
+         String linea;
+         
+         while((linea=br.readLine())!=null) 
+         {
+          datos =linea.split(",");
+          cmbUsuarioLogin.addItem(datos[0]);    
+         }
+       }
+      catch(IOException e){
+       if(flg==true){
+          JOptionPane.showMessageDialog(null, "Error al cargar docentes" +e);   
+          }
+      }  
+
+}
+
+
+public void LLenaTablaCarreras()
+{
     
   try {
         File archivo = new File ( pathL +"\\src\\CARRERAS.txt");
@@ -628,7 +693,10 @@ public class AppMatriculas extends javax.swing.JFrame {
          
             {
               datos = linea.split(",");
+              if(flg== true)
+              {
               System.out.println("dato en arreglo: " + datos[1] +" dato en combo: " + param); 
+              }
                 if(param == null && datos[0] == null)
                 {
                     tm.addRow(datos); 
@@ -645,29 +713,27 @@ public class AppMatriculas extends javax.swing.JFrame {
             br.close();
          } catch (IOException ex) 
          {
+          if(flg==true){
             System.out.println("error al llenar tabla"+ listadoCarreras.getName()); 
+           }
          }
 
 }
 
-   public boolean llenaListaEsperaArchivo()
-    {
+public boolean llenaListaEsperaArchivo()
+{
     try 
         {             
             String ruta = pathL +"\\src\\LISTADEESPERA.txt";
                       
             StringBuffer s = new StringBuffer();
+            s.append(devuelveNroAtencion());
+            s.append(",");
 	    s.append(txtRutTomaNumero.getText()); 
             s.append(",");
             s.append(cmbCursosTomaNumero.getSelectedItem());
             s.append(",");
-            //falta validar contar  y llenar  prioridad 
-            s.append(devuelveNroAtencion());
-            s.append(",");
             s.append(retornaEjecutivo());
-            
-
-              
             
             FileWriter fw = new FileWriter(ruta,true);
             PrintWriter pw = new PrintWriter(fw);
@@ -684,71 +750,6 @@ public class AppMatriculas extends javax.swing.JFrame {
         }
 }
   
-    
-    
-   
-
-public void llenarColas()
-{
-    
-    File archivo;
-    FileReader fr;
-    BufferedReader br;
-    String datos[]= null;  
-      
-      try 
-      {
-         archivo = new File (pathL +"\\src\\LISTADEESPERA.txt");
-         fr = new FileReader (archivo);
-         br = new BufferedReader(fr);
-     
-         String linea;
-         while((linea=br.readLine())!=null)
-         {  
-             datos = linea.split(",");
-             
-             System.out.println(datos[3]);
-             if ("ADMINISTRATIVO1".equals(datos[3])) 
-             {
-                 ej1.add(datos[0]+","+datos[1]+","+datos[2]+","+datos[3]+"\n");
-             }
-             if ("ADMINISTRATIVO2".equals(datos[3])) 
-             {
-                 ej2.add(datos[0]+","+datos[1]+","+datos[2]+","+datos[3]+"\n");
-             }             
-             if ("ADMINISTRATIVO3".equals(datos[3])) 
-             {
-                 ej3.add(datos[0]+","+datos[1]+","+datos[2]+","+datos[3]+"\n");
-             }
-          
-         System.out.println("---------cola1-------------");
-         System.out.println(ej1);
-         System.out.println("---------fin 1-------------");
-         
-         
-         System.out.println("---------cola2-------------");
-         System.out.println(ej2);
-         System.out.println("---------fin 2-------------");
-         
-         
-         System.out.println("---------cola3-------------");
-         System.out.println(ej3);
-         System.out.println("---------fin 3-------------");
-          
-         }
-      }
-      catch(IOException e)
-      {         
-       JOptionPane.showMessageDialog(null, "Error al llenar colas");   
-      } 
-  }    
-    
-public void borrarCola()
-{
- ej1.clear();
- ej2.clear();
- ej3.clear();
-}
 public String retornaEjecutivo()
 {
   String asignado=null;
@@ -784,21 +785,21 @@ public String retornaEjecutivo()
          if("ADMINISTRATIVO1".equals(datos[3]))
             {
                cant1= cant1+1;
-              
             }
           if("ADMINISTRATIVO2".equals(datos[3]))
             {
               cant2= cant2+1;
             }      
-            if("ADMINISTRATIVO3".equals(datos[3]))
+          if("ADMINISTRATIVO3".equals(datos[3]))
             {
               cant3= cant3+1;
             }
                 
          }
-          
+          if(flg == true)
+          {
            System.out.println("C1------- " + cant1 + " C2------ "+cant2 + "C3----- "+cant3);
-
+          }
            if(cant1 <= cant2 && cant1 < cant3)
           {
              asignado = "ADMINISTRATIVO1" ;  
@@ -856,7 +857,48 @@ public int devuelveNroAtencion()
   
  return cont;
 }
-    
+
+
+
+
+public boolean validaPass()
+{
+      File archivo ;
+      FileReader fr;
+      BufferedReader br;
+      String[] datos;
+      boolean aux= true;
+      try 
+      {
+         archivo = new File (pathL +"\\src\\USUARIOS.txt");
+         fr = new FileReader (archivo);
+         br = new BufferedReader(fr);
+         String linea;
+         String param =txtps.getText();
+         String eje = cmbUsuarioLogin.getSelectedItem().toString();
+         while((linea=br.readLine())!=null) 
+         {
+          datos =linea.split(",");
+          
+          if(datos[0].equals(eje)){
+           if(datos[1].equals(param))
+           {
+           aux = true;
+           labelEje.setText(eje);
+           }
+          }
+         }
+       }
+      catch(IOException e){
+       if(flg==true){
+          JOptionPane.showMessageDialog(null, "Error al  validar contraseña ejecutivo" +e);   
+          }
+       aux = false;
+      }  
+
+return aux;
+}
+
 public static boolean validarRut(String rut) 
  {
  
@@ -900,7 +942,7 @@ public void limpiar(String formulario)
                 break;
 
             case "Login":
-                txtPass.setText("");
+                txtps.setText("");
                 cmbUsuarioLogin.setSelectedIndex(0);
                 break;
     }
@@ -922,7 +964,75 @@ public static void eliminarFichero(File fichero)
 }
 
 
+
+public void llenarColas()
+{
+    
+    File archivo;
+    FileReader fr;
+    BufferedReader br;
+    String datos[]= null;  
+      
+      try 
+      {
+         archivo = new File (pathL +"\\src\\LISTADEESPERA.txt");
+         fr = new FileReader (archivo);
+         br = new BufferedReader(fr);
+     
+         String linea;
+         while((linea=br.readLine())!=null)
+         {  
+             datos = linea.split(",");
+             
+             System.out.println(datos[3]);
+             if ("ADMINISTRATIVO1".equals(datos[3])) 
+             {
+                 ej1.add(datos[0]+","+datos[1]+","+datos[2]+","+datos[3]+"\n");
+             }
+             if ("ADMINISTRATIVO2".equals(datos[3])) 
+             {
+                 ej2.add(datos[0]+","+datos[1]+","+datos[2]+","+datos[3]+"\n");
+             }             
+             if ("ADMINISTRATIVO3".equals(datos[3])) 
+             {
+                 ej3.add(datos[0]+","+datos[1]+","+datos[2]+","+datos[3]+"\n");
+             }
+         if (flg == true)
+         { 
+         System.out.println("---------cola1-------------");
+         System.out.println(ej1);
+         System.out.println("---------fin 1-------------");
+         
+         
+         System.out.println("---------cola2-------------");
+         System.out.println(ej2);
+         System.out.println("---------fin 2-------------");
+         
+         
+         System.out.println("---------cola3-------------");
+         System.out.println(ej3);
+         System.out.println("---------fin 3-------------");
+         }
+         }
+      }
+      catch(IOException e)
+      {         
+       JOptionPane.showMessageDialog(null, "Error al llenar colas");   
+      } 
+  }    
+    
+public void borrarCola()
+{
+ ej1.clear();
+ ej2.clear();
+ ej3.clear();
 }
 
 
+
+
+
+
+
+}
 
